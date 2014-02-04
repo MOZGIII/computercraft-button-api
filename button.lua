@@ -1,8 +1,13 @@
-local mon = peripheral.wrap("top")
-mon.setTextScale(1)
-mon.setTextColor(colors.white)
-local button={}
-mon.setBackgroundColor(colors.black)
+local button = {}
+local mon = nil
+
+function initMonitor(position)
+  mon = peripheral.wrap(position)
+
+  mon.setTextScale(1)
+  mon.setTextColor(colors.white)
+  mon.setBackgroundColor(colors.black)
+end
 
 function clearTable()
   button = {}
@@ -12,8 +17,11 @@ end
 function setTable(name, func, xmin, xmax, ymin, ymax)
   button[name] = {}
   button[name]["userData"] = {}
-  button[name]["func"] = func
   button[name]["active"] = false
+
+  button[name]["name"] = name
+
+  button[name]["func"] = func
   button[name]["xmin"] = xmin
   button[name]["ymin"] = ymin
   button[name]["xmax"] = xmax
@@ -22,8 +30,8 @@ end
 
 function fill(text, color, bData)
   mon.setBackgroundColor(color)
-  local yspot = math.floor((bData["ymin"] + bData["ymax"]) /2)
-  local xspot = math.floor((bData["xmax"] - bData["xmin"] - string.len(text)) /2) + 1
+  local yspot = math.floor((bData["ymin"] + bData["ymax"]) / 2)
+  local xspot = math.floor((bData["xmax"] - bData["xmin"] - string.len(text)) / 2) + 1
   for j = bData["ymin"], bData["ymax"] do
     mon.setCursorPos(bData["xmin"], j)
     if j == yspot then
@@ -95,15 +103,18 @@ function label(w, h, text)
   mon.write(text)
 end
 
-function userData(name)
-  button[name]["userData"]
+function userData(name, key)
+  return button[name]["userData"][key]
+end
+
+function setUserData(name, key, value)
+  button[name]["userData"][key] = value
 end
 
 function isActive(name)
-  button[name]["active"]
+  return button[name]["active"]
 end
 
-function accessor(name)
-  button[name]
+function get(name)
+  return button[name]
 end
-
