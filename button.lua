@@ -35,7 +35,7 @@ function fill(text, color, bData)
   for j = bData["ymin"], bData["ymax"] do
     mon.setCursorPos(bData["xmin"], j)
     if j == yspot then
-      for k = 0, bData["xmax"] - bData["xmin"] - string.len(text) +1 do
+      for k = 0, bData["xmax"] - bData["xmin"] - string.len(text) + 1 do
         if k == xspot then
           mon.write(text)
         else
@@ -82,8 +82,8 @@ end
 
 function checkxy(x, y)
   for name, data in pairs(button) do
-    if y>=data["ymin"] and  y <= data["ymax"] then
-      if x>=data["xmin"] and x<= data["xmax"] then
+    if y >= data["ymin"] and y <= data["ymax"] then
+      if x >= data["xmin"] and x <= data["xmax"] then
         data["func"](data["name"])
         return true
       end
@@ -94,7 +94,7 @@ end
   
 function heading(text)
   w, h = mon.getSize()
-  mon.setCursorPos((w-string.len(text))/2+1, 1)
+  mon.setCursorPos((w - string.len(text)) / 2 + 1, 1)
   mon.write(text)
 end
   
