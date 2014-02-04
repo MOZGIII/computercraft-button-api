@@ -24,7 +24,7 @@ end
 function onButton(name)
   button.toggleButton(name)
   updateSignal(button.isActive(name), button.userData(name, "signal_id"))
-  redstone.setBundledOutput("back", signal)
+  redstone.setBundledOutput("back", bit.bxor(2^17-1, signal))
 end
  
 function updateSignal(bool, signal_id)
@@ -35,5 +35,6 @@ function updateSignal(bool, signal_id)
   end
 end
 
+redstone.setBundledOutput("back", 2^17-1)
 initAll()
 button.mainLoop()
