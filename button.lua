@@ -67,10 +67,8 @@ end
 
 function flash(name)
   toggleButton(name)
-  screen()
   sleep(0.15)
   toggleButton(name)
-  screen()
 end
 
 function mainLoop()
